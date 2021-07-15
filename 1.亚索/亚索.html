@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+  <meta name="referrer" content="never">
+  <title></title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Nunito&family=Zilla+Slab:wght@400;700&display=swap");
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	--red: #4769da;
+	--white: #cacaca;
+	--black: #0b0b0b;
+}
+
+body {
+	min-height: 100vh;
+	display: grid;
+	place-items: center;
+	padding: 1em;
+
+	font-family: "Zilla Slab", serif;
+
+	background-color: var(--red);
+	background-image: url("https://www.transparenttextures.com/patterns/worn-dots.png");
+}
+
+a {
+	text-decoration: none;
+}
+
+img {
+	width: 100%;
+	height: auto;
+}
+
+.container {
+	width: 800px;
+	height: 100%;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	grid-template-rows: repeat(5, minmax(150px, 1fr));
+	grid-auto-rows: auto;
+	position: relative;
+}
+
+.grid-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	width: 800px;
+	height: 100%;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	grid-template-rows: repeat(5, minmax(150px, 1fr));
+	border-top: 1px dashed var(--white);
+	border-left: 1px dashed var(--white);
+	opacity: 0.7;
+}
+
+.grid-item {
+	border-right: 1px dashed var(--white);
+	border-bottom: 1px dashed var(--white);
+	height: 100%;
+	width: 100%;
+	position: relative;
+}
+
+.dot {
+	width: 10px;
+	height: 10px;
+	background-color: var(--white);
+	border-radius: 50%;
+	position: absolute;
+	left: -5px;
+	top: -5px;
+}
+
+.grid-item:nth-of-type(1) div,
+.grid-item:nth-of-type(2) div,
+.grid-item:nth-of-type(3) div,
+.grid-item:nth-of-type(4) div,
+.grid-item:nth-of-type(5) div,
+.grid-item:nth-of-type(6) div,
+.grid-item:nth-of-type(11) div,
+.grid-item:nth-of-type(16) div,
+.grid-item:nth-of-type(21) div,
+.grid-item:nth-of-type(26) div,
+.grid-item:nth-of-type(27) div,
+.grid-item:nth-of-type(28) div,
+.grid-item:nth-of-type(29) div,
+.grid-item:nth-of-type(30) div {
+	display: none;
+}
+
+.grid-item:nth-child(1),
+.grid-item:nth-child(18),
+.grid-item:nth-child(19),
+.grid-item:nth-child(24) {
+	border-right: 0;
+}
+
+.grid-item:nth-child(21),
+.grid-item:nth-child(22),
+.grid-item:nth-child(23),
+.grid-item:nth-child(24),
+.grid-item:nth-child(25) {
+	border-bottom: 0;
+}
+
+.festival-title {
+	grid-column: 1/3;
+	grid-row: 1/2;
+	padding-left: 1em;
+	align-self: center;
+}
+.festival-title h1 {
+	font-size: 2.5rem;
+	color: var(--white);
+	font-weight: 700;
+	color: var(--black);
+}
+
+.festival-name {
+	grid-column: 5/6;
+	grid-row: 1/2;
+	padding: 1em;
+	align-self: center;
+}
+.festival-name h3 {
+	color: var(--white);
+	font-weight: normal;
+	text-transform: uppercase;
+	font-family: "Nunito", sans-serif;
+	font-size: 1rem;
+	letter-spacing: 2px;
+	line-height: 18px;
+}
+.festival-name h3 span {
+	display: block;
+	font-family: "Zillo Slab", serif;
+	font-size: 1.5rem;
+	text-transform: none;
+	font-weight: 700;
+	margin-bottom: 10px;
+	font-style: italic;
+}
+
+.festival-image {
+	grid-column: 3/5;
+	grid-row: 1/6;
+	position: relative;
+	z-index: -1;
+}
+
+.festival-quote {
+	grid-column: 3/6;
+	grid-row: 4/5;
+	padding: 1em 2em;
+	background-color: var(--red);
+	background-image: url("https://www.transparenttextures.com/patterns/worn-dots.png");
+	height: 100%;
+	align-self: center;
+}
+.festival-quote blockquote {
+	font-size: 1.2rem;
+	color: var(--white);
+	line-height: 26px;
+	color: var(--black);
+	position: relative;
+	font-style: italic;
+}
+.festival-quote blockquote::before {
+	content: open-quote;
+	position: absolute;
+	top: 5px;
+	left: -30px;
+	font-size: 4rem;
+	opacity: 0.5;
+}
+.festival-quote blockquote::after {
+	content: close-quote;
+	position: absolute;
+	bottom: -5px;
+	right: -10px;
+	font-size: 4rem;
+	opacity: 0.5;
+}
+
+.festival-location {
+	grid-column: 4/6;
+	grid-row: 5/6;
+	color: var(--white);
+	align-self: center;
+	padding: 1em;
+}
+.festival-location h4 {
+	font-size: 1.2rem;
+	font-style: italic;
+	margin-bottom: 10px;
+}
+.festival-location p {
+	text-transform: uppercase;
+	font-family: "Nunito", sans-serif;
+	font-size: 0.8rem;
+	letter-spacing: 1px;
+}
+.festival-location small {
+	font-size: 0.7rem;
+	opacity: 0.8;
+}
+
+.film {
+	padding: 1em;
+	color: var(--white);
+	text-transform: uppercase;
+	font-family: "Nunito", sans-serif;
+	font-size: 0.9rem;
+	letter-spacing: 1px;
+	align-self: center;
+}
+.film span {
+	display: block;
+	letter-spacing: 0;
+	font-family: "Zillo Slab", serif;
+	font-size: 1.2rem;
+	font-style: italic;
+	opacity: 0.7;
+}
+
+#film-1 {
+	grid-column: 1/2;
+	grid-row: 2/3;
+}
+#film-2 {
+	grid-column: 2/3;
+	grid-row: 2/3;
+}
+#film-3 {
+	grid-column: 1/2;
+	grid-row: 3/4;
+}
+#film-4 {
+	grid-column: 2/3;
+	grid-row: 3/4;
+}
+#film-5 {
+	grid-column: 1/2;
+	grid-row: 4/5;
+}
+#film-6 {
+	grid-column: 2/3;
+	grid-row: 5/6;
+}
+#film-7 {
+	grid-column: 5/6;
+	grid-row: 2/3;
+}
+#film-8 {
+	grid-column: 5/6;
+	grid-row: 3/4;
+}
+
+@media screen and (max-width: 480px) {
+	body {
+		padding: 0;
+	}
+	.container,
+	.grid-overlay {
+		width: auto;
+		grid-template-columns: repeat(5, minmax(100px, 1fr));
+		grid-template-rows: repeat(6, minmax(100px, 1fr));
+		min-height: 100%;
+	}
+
+	.grid-item:nth-child(11),
+	.grid-item:nth-child(12),
+	.grid-item:nth-child(13),
+	.grid-item:nth-child(14),
+	.grid-item:nth-child(27),
+	.grid-item:nth-child(28) {
+		border-right: 0;
+	}
+	.grid-item:nth-child(18),
+	.grid-item:nth-child(19),
+	.grid-item:nth-child(24) {
+		border-right: 1px dashed var(--white);
+	}
+	.grid-item:nth-child(21),
+	.grid-item:nth-child(22),
+	.grid-item:nth-child(23),
+	.grid-item:nth-child(24),
+	.grid-item:nth-child(25) {
+		border-bottom: 1px dashed var(--white);
+	}
+	.grid-item:nth-of-type(26) div,
+	.grid-item:nth-of-type(27) div,
+	.grid-item:nth-of-type(28) div,
+	.grid-item:nth-of-type(29) div,
+	.grid-item:nth-of-type(30) div {
+		display: block;
+	}
+
+	.festival-title {
+		grid-column: 1/3;
+		grid-row: 1/2;
+	}
+	.festival-title h1 {
+		font-size: 1.7rem;
+	}
+
+	.festival-name {
+		grid-column: 5/6;
+		grid-row: 1/2;
+	}
+	.festival-name h3 {
+		font-size: 0.8rem;
+	}
+	.festival-name h3 span {
+		font-size: 1rem;
+	}
+
+	.festival-image {
+		grid-column: 2/5;
+		grid-row: 1/4;
+	}
+
+	.festival-quote {
+		grid-column: 1/6;
+		grid-row: 3/4;
+		padding: 2em;
+	}
+	.festival-quote blockquote {
+		font-size: 1.1rem;
+	}
+
+	.film {
+		font-size: 0.8rem;
+	}
+	.film span {
+		font-size: 1rem;
+	}
+
+	#film-1 {
+		grid-column: 1/2;
+		grid-row: 4/5;
+	}
+	#film-2 {
+		grid-column: 2/3;
+		grid-row: 4/5;
+	}
+	#film-3 {
+		grid-column: 4/5;
+		grid-row: 4/5;
+	}
+	#film-4 {
+		grid-column: 5/6;
+		grid-row: 4/5;
+	}
+	#film-5 {
+		grid-column: 1/2;
+		grid-row: 5/6;
+	}
+	#film-6 {
+		grid-column: 2/3;
+		grid-row: 5/6;
+	}
+	#film-7 {
+		grid-column: 4/5;
+		grid-row: 5/6;
+	}
+	#film-8 {
+		grid-column: 5/6;
+		grid-row: 5/6;
+	}
+
+	.festival-location {
+		grid-column: 2/5;
+		grid-row: 6/7;
+	}
+}
+  </style>
+</head>
+<body>
+  <div class="container" id="app">
+    <div class="festival-title">
+      <h1>A Kurosawa Retrospective</h1>
+    </div>
+  
+    <div class="festival-name">
+      <h3><span>70th</span> Sydney<br> Film<br> Festival</h3>
+    </div>
+  
+    <figure class="festival-image">
+      <img src="https://www.sicontis.com/codepen/cpc-dot-dash/samurai.png" alt="samurai image">
+    </figure>
+  
+    <div class="festival-quote">
+      <blockquote>The best of Kurosawa’s films possess a grandeur combined with a common touch. No-one filmed action scenes like he did – his use of multiple cameras, long lenses and intricate editing combined to make these sequences unforgettable.</blockquote>
+    </div>
+  
+    <div v-for="film in films" class="film" :key="film.num" :id="`film-${film.num}`">{{ film.title }}<span>{{ film.year }}</span>
+    </div>
+  
+    <div class="festival-location">
+      <h4>August 7 - 16, 2021</h4>
+      <p>
+        Sydney Coliseum Theatre<br>
+        <small>33 Railway Street, Rooty Hill, NSW</small><br>
+        <small>contactus@sydneycoliseum.com.au</small><br>
+      </p>
+    </div>
+  
+    <div class="grid-overlay">
+      <div class="grid-item" v-for="item in fullsize" :key="item">
+        <div class="dot" :style="`z-index: ${item}`"></div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    new Vue({
+	el: "#app",
+	data() {
+		return {
+			fullsize: 30,
+			films: [
+				{
+					num: 1,
+					title: "Rashomon",
+					year: "1950"
+				},
+				{
+					num: 2,
+					title: "Living (Ikiru)",
+					year: "1952"
+				},
+				{
+					num: 3,
+					title: "Seven Samurai",
+					year: "1954"
+				},
+				{
+					num: 4,
+					title: "Throne Of Blood",
+					year: "1957"
+				},
+				{
+					num: 5,
+					title: "The Hidden Fortress",
+					year: "1958"
+				},
+				{
+					num: 6,
+					title: "Yojimbo",
+					year: "1961"
+				},
+				{
+					num: 7,
+					title: "Kagemusha",
+					year: "1980"
+				},
+				{
+					num: 8,
+					title: "Ran",
+					year: "1985"
+				}
+			]
+		};
+	}
+});
+
+  </script>
+</body>
+</html>
